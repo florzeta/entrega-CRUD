@@ -1,0 +1,24 @@
+section {
+    margin: 20px;
+    padding: 10px;
+}
+
+.novedad {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.novedad h3 {
+    margin-top: 0;
+}
+
+.novedad h4 {
+    margin-bottom: 5px;
+}
+
+.novedad p {
+    margin-top: 5px;
+    font-size: 14px;
+}

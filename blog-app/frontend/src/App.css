@@ -1,0 +1,17 @@
+/* google fonts */
+
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.holder {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+h2 {
+  color: rgb(81, 81, 216);
+  font-weight: 400;
+}
