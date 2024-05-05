@@ -60,7 +60,7 @@ router.post('/modificar', async (req, res, next) => {
             cuerpo: req.body.cuerpo
         }
         await publicacionesModel.modificarPublicacionById(obj, req.body.id);
-        res.redirect('/admin/novedades');
+        res.redirect('/admin/publicaciones');
     }
     catch (error) {
         console.log(error)

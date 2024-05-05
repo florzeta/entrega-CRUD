@@ -18,20 +18,20 @@ async function insertPublicacion(obj) {
 }
 
 async function deletePublicacionById(id) {
-    var query = "delete from publicaciones where id = ?";
+    var query = "delete from publicaciones where id_publicacion = ? ";
     var rows = await pool.query(query, [id]);
     return rows;
 }
 
 async function getPublicacionById(id) {
-    var query = "select * from publicaciones where id_publicaciones = ? ";
+    var query = "select * from publicaciones where id_publicacion = ? ";
     var rows = await pool.query(query, [obj, id]);
     return rows[0];
 }
 
 async function modificarPublicacionById(obj, id) {
     try {
-        var query = "update publicaciones set ? where id=?";
+        var query = "update publicaciones set ? where id_publicacion = ? ";
         var rows = await pool.query(query, [obj, id]);
         return rows[0];
     } catch (error) {
