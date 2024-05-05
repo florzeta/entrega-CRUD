@@ -8,7 +8,7 @@ async function getPublicaciones() {
 
 async function insertPublicacion(obj) {
     try {
-        var query = "insert into publicaciones set ?";
+        var query = "insert into publicaciones set ? ";
         var rows = await pool.query(query, [obj]);
         return rows;
     } catch (error) {
