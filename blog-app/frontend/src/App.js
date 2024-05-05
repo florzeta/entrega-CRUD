@@ -9,7 +9,6 @@ import Footer from './components/layout/Footer';
 import ContactoPage from './components/pages/ContactoPage';
 import HomePage from './components/pages/HomePage';
 import PublicacionesPage from './components/pages/PublicacionesPage';
-import NovedadesPage from './components/pages/NovedadesPage';
 
 function App() {
   return (

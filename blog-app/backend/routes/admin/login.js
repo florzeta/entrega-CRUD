@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var usuariosModel = require('./../../models/usuariosModel');
 
-router.get('/', function (req, res, next) {
-    // req.session.destroy();
+router.get('/', function (req, res, next) { 
+    req.session.destroy();
     res.render('admin/login', {
         layout: 'admin/layout'
     });

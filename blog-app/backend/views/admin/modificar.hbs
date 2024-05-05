@@ -1,0 +1,25 @@
+<div class="container" style="margin:50px auto">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <h4>Modificar la publicacion</h4>
+            <form method="post" action="/admin/publicaciones/modificar">
+                <input type="hidden" value="{{publicacion.id}}" name="id">
+                <div class="form-group">
+                    <input type="text" placeholder="Titulo" value="{{publicacion.titulo}}" class="form-control"
+                        name="titulo">
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Subtitulo" class="form-control"
+                        name="subtitulo">{{publicacion.subtitulo}}</textarea>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Cuerpo" class="form-control" name="cuerpo">{{publicacion.cuerpo}}</textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Modificar</button>
+            </form>
+        </div>
+    </div>
+    {{#if error}}
+    <h5>{{message}}</h5>
+    {{/if}}
+</div>
