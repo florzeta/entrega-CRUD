@@ -18,7 +18,7 @@
         <div class="col">
             <table class="table">
                 <thead>
-                    <tr class="table dark">
+                    <tr class="table-dark">
                         <th scope="col">#</th>
                         <th scope="col">Titulo</th>
                         <th scope="text-end">Acciones</th>
@@ -27,12 +27,12 @@
                 <tbody>
                     {{#each publicaciones}}
                     <tr>
-                        <th scope="row">{{id}}</th>
+                        <th scope="row">{{id_publicacion}}</th>
                         <td>{{titulo}}</td>
                         <td class="text-end">
-                            <a class="btn btn-secondary" href="/admin/publicaciones/modificar/{{id}}"><i
+                            <a class="btn btn-secondary" href="/admin/publicaciones/modificar/{{id_publicacion}}"><i
                                     class="fa fa-pencil" aria-hidden="true"></i></a>
-                            <a class="btn btn-secondary" href="/admin/publicaciones/eliminar/{{id}}"><i
+                            <a class="btn btn-secondary" href="/admin/publicaciones/eliminar/{{id_publicacion}}"><i
                                     class="fa fa-trash" aria-hidden="true"></i></a>
                         </td>
                     </tr>

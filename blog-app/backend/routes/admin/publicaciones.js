@@ -38,9 +38,9 @@ router.post('/agregar', async (req, res, next) => {
 });
 
 router.get('/eliminar/:id', async (req, res, next) => {
-    var id = req.params.id;
+    const id = req.params.id;
     await publicacionesModel.deletePublicacionById(id);
-    res.redirect('/admin/publicaciones')
+    res.redirect('/admin/publicaciones');
 });
 
 router.get('/modificar/:id', async (req, res, next) => {
@@ -48,17 +48,19 @@ router.get('/modificar/:id', async (req, res, next) => {
     let publicacion = await publicacionesModel.getPublicacionById(id);
     res.render('admin/modificar', {
         layout: 'admin/layout',
-        novedad
+        publicacion
     });
 });
 
 router.post('/modificar', async (req, res, next) => {
     try {
-        let obj = {
+        var obj = {
             titulo: req.body.titulo,
             subtitulo: req.body.subtitulo,
             cuerpo: req.body.cuerpo
         }
+        console.log(obj)
+
         await publicacionesModel.modificarPublicacionById(obj, req.body.id);
         res.redirect('/admin/publicaciones');
     }
@@ -66,9 +68,11 @@ router.post('/modificar', async (req, res, next) => {
         console.log(error)
         res.render('admin/modificar', {
             layout: 'admin/layout',
-            error: true, message: 'No se modifico la publicacion'
+            error: true,
+            message: 'No se modifico la publicacion'
         })
     }
 })
+
 
 module.exports = router;
