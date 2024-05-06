@@ -1,15 +1,39 @@
 var express = require('express');
 var router = express.Router();
 var publicacionesModel = require('./../../models/publicacionesModel');
+const util = require('util');
+const cloudinary = require('cloudinary').v2;
+const uploader = util.promisify(cloudinary.uploader.upload);
+const destroy = util.promisify(cloudinary.uploader.destroy);
 
 router.get('/', async function (req, res, next) {
     var publicaciones = await publicacionesModel.getPublicaciones();
-    res.render('admin/publicaciones', {
+    publicaciones = publicaciones.map(publicacion => {
+        if (publicacion.img_id) {
+            const imagen = cloudinary.image(publicacion.img_id, {
+                width: 100,
+                height: 100,
+                crop: 'fill'
+            });
+            return {
+                ...publicacion, 
+                imagen
+            }
+        } else {
+            return {
+                ...publicacion,
+                imagen: ''
+            }
+        }
+    });
+
+res.render('admin/publicaciones', {
         layout: 'admin/layout',
         usuario: req.session.nombre,
         publicaciones
     });
 });
+
 
 router.get('/agregar', (req, res, next) => {
     res.render('admin/agregar', {
@@ -19,28 +43,40 @@ router.get('/agregar', (req, res, next) => {
 
 router.post('/agregar', async (req, res, next) => {
     try {
+        var img_id = '';
+        // console.log(req.files.imagen);
+        if (req.files && Object.keys(req.files).length > 0) {
+            imagen = req.files.imagen;
+            img_id = (await uploader(imagen.tempFilePath)).public_id;
+        }
+
         if (req.body.titulo != "" && req.body.subtitulo != "" && req.body.cuerpo != "") {
-            await publicacionesModel.insertPublicacion(req.body);
+            await publicacionesModel.insertPublicacion({
+                ...req.body,
+                img_id
+            });
             res.redirect('/admin/publicaciones')
         } else {
             res.render('admin/agregar', {
                 layout: 'admin/layout',
-                error: true, message: 'Todos los campos son requeridos'
+                error: true,
+                message: 'Todos los campos son requeridos'
             })
         }
     } catch (error) {
         console.log(error)
         res.render('admin/agregar', {
             layout: 'admin/layout',
-            error: true, message: 'No se cargo la publicacion'
+            error: true,
+            message: 'No se cargo la publicacion'
         });
     }
 });
 
 router.get('/eliminar/:id', async (req, res, next) => {
-    const id = req.params.id;
+    var id = req.params.id;
     await publicacionesModel.deletePublicacionById(id);
-    res.redirect('/admin/publicaciones');
+    res.redirect('/admin/publicaciones')
 });
 
 router.get('/modificar/:id', async (req, res, next) => {
@@ -54,12 +90,12 @@ router.get('/modificar/:id', async (req, res, next) => {
 
 router.post('/modificar', async (req, res, next) => {
     try {
-        var obj = {
+        let obj = {
             titulo: req.body.titulo,
             subtitulo: req.body.subtitulo,
+            // img_id: req.body.imagen,
             cuerpo: req.body.cuerpo
         }
-        console.log(obj)
 
         await publicacionesModel.modificarPublicacionById(obj, req.body.id);
         res.redirect('/admin/publicaciones');

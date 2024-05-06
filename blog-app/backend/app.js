@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
   secret: 'kgnsilxyujtreew788kl0',
-  cookie: {maxAge: null},
+  cookie: { maxAge: null },
   resave: false,
   saveUninitialized: true
 }));
@@ -47,6 +47,11 @@ secured = async (req, res, next) => {
   }
 }
 
+app.use(fileUpload({
+  useTempFiles: true,
+  tempFileDir: '/tmp/'
+}));
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/admin/login', loginRouter);
@@ -55,7 +60,7 @@ app.use('/admin/publicaciones', secured, adminRouter);
 app.get('/', function (req, res) {
   var conocido = Boolean(req.session.nombre);
 
-  res.render('index', {
+res.render('index', {
     title: 'Sesiones en Express.js',
     conocido: conocido,
     nombre: req.session.nombre
