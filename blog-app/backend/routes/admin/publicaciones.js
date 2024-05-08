@@ -72,16 +72,20 @@ router.post('/agregar', async (req, res, next) => {
     }
 });
 
-
 router.get('/eliminar/:id', async (req, res, next) => {
     var id = req.params.id;
+
+    let publicacion = await publicacionesModel.getPublicacionById(id); 
+    if(publicacion.img_id) {
+        await (destroy(publicacion.img_id));
+    }
     await publicacionesModel.deletePublicacionById(id);
-    res.redirect('/admin/publicaciones')
+    res.redirect('/admin/publicaciones');
 });
 
 router.get('/modificar/:id', async (req, res, next) => {
-    let id = req.params.id;
-    let publicacion = await publicacionesModel.getPublicacionById(id);
+    var id = req.params.id;
+    var publicacion = await publicacionesModel.getPublicacionById(id);
     res.render('admin/modificar', {
         layout: 'admin/layout',
         publicacion
@@ -103,7 +107,7 @@ router.post('/modificar', async (req, res, next) => {
             }
         }
         if (borrar_img_vieja && req.body.img_original) {
-            await (destroy(req.img_original));
+            await (destroy(req.body.img_original));
         }
 
         var obj = {
