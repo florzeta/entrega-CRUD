@@ -6,7 +6,7 @@ const PublicacionItem = (props) => {
         <div className="publicaciones">
             <h1>{title}</h1>
             <h2>{subtitle}</h2>
-            <img src={imagen} />
+            <img src={imagen} alt='Publicacion'/>
             <div dangerouslySetInnerHTML={{ __html: body }}/>
                 <hr />
         </div>
