@@ -1,8 +1,9 @@
 .bienvenidos {
-  width: 75%;
-  padding-right: 10px;
+  padding: 10px;
   box-sizing: border-box;
   text-align: justify;
+  background-color: #f0f0f08c;
+  justify-content: center;
 }
 
 .bienvenidos p {
@@ -22,6 +23,7 @@
   padding: 20px;
 }
 
+
 .publicaciones h1 {
   font-size: 24px;
   margin-bottom: 10px;
@@ -40,9 +42,10 @@
 
 .publicaciones img {
   max-width: 100%;
-  height: auto;
+  height: 100%;
   margin-bottom: 10px;
   border-radius: 5px;
+  object-fit: cover;
 }
 
 .publicaciones hr {
@@ -59,4 +62,7 @@
 .featured-card {
   display: inline-block;
   text-align: left;
+  background-color: #cce1f856;
+  justify-content: center;
+  padding: 20px;
 }
