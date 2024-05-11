@@ -3,22 +3,48 @@ section {
     padding: 10px;
 }
 
-.novedad {
-    margin-bottom: 20px;
-    padding: 10px;
+.novedades-holder {
     background-color: #f9f9f9;
-    border-radius: 5px;
+    color: #333;
+    font-family: Arial, sans-serif;
 }
 
-.novedad h3 {
-    margin-top: 0;
+.novedades-holder .publicacion-item:first-child {
+    width: 100%;
+    height: auto;
 }
 
-.novedad h4 {
-    margin-bottom: 5px;
+.fecha {
+    font-weight: bold;
+    color: #888;
 }
 
-.novedad p {
-    margin-top: 5px;
-    font-size: 14px;
+.volver-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
 }
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.button {
+    background-color: transparent;
+    border: 2px solid transparent;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #abafcf; 
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.button:hover {
+    color: #333; 
+    border-color: #555;
+    transition: color 0.3s ease;
+}
+

@@ -1,26 +1,64 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import PublicacionItem from '../publicaciones/PublicacionItem';
 import '../styles/components/pages/NovedadesPage.css';
+
+
 const NovedadesPage = (props) => {
+    const [loading, setLoading] = useState(false);
+    const [publicaciones, setPublicaciones] = useState([]);
+    const [ordenAscendente, setOrdenAscendente] = useState(false);
+
+    useEffect(() => {
+        const cargarPublicaciones = async () => {
+            setLoading(true);
+            try {
+                const response = await axios.get('http://localhost:3000/api/publicaciones');
+                // Ordenar las publicaciones por fecha de subida, de más reciente a más antigua
+                const publicacionesOrdenadas = response.data.sort((a, b) => {
+                    if (ordenAscendente) {
+                        return new Date(a.fecha_subida) - new Date(b.fecha_subida);
+                    } else {
+                        return new Date(b.fecha_subida) - new Date(a.fecha_subida);
+                    }
+                });
+                setPublicaciones(publicacionesOrdenadas);
+            } catch (error) {
+                console.error('Error al cargar las publicaciones:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        cargarPublicaciones();
+    }, [ordenAscendente]); // Agregar ordenAscendente como dependencia para que se ejecute el efecto cuando cambie
+
+    const formatFecha = (fechaISO) => {
+        const fecha = new Date(fechaISO);
+        return fecha.toLocaleDateString();
+    };
+
+    // Función para alternar entre el orden ascendente y descendente
+    const alternarOrden = () => {
+        setOrdenAscendente(!ordenAscendente);
+    };
+
     return (
-        <section>
+        <section className="holder novedades-holder">
             <h2>Novedades</h2>
-            <div className="novedad">
-                <h3>¡Bienvenidos a nuestra nueva aplicación!</h3>
-                <h4>Descubre todas las nuevas características</h4>
-                <p>Estamos emocionados de presentar nuestra última versión de la aplicación. Con nuevas funciones como notificaciones push y personalización de perfiles, ¡explora y disfruta de una experiencia mejorada!</p>
+            <div className="button-container">
+                <button className="button" onClick={alternarOrden}>
+                    {ordenAscendente ? 'Ver las publicaciones más recientes' : 'Ver las publicaciones más antiguas'}
+                </button>
             </div>
-            <div className="novedad">
-                <h3>Actualización de la interfaz de usuario</h3>
-                <h4>Mejora de la experiencia de usuario</h4>
-                <p>Hemos escuchado tus comentarios y hemos realizado cambios significativos en nuestra interfaz de usuario. Desde un diseño más intuitivo hasta una navegación más fluida, ¡disfruta de una experiencia más agradable!</p>
-            </div>
-            <div className="novedad">
-                <h3>Evento de lanzamiento de producto</h3>
-                <h4>¡Únete a nosotros para conocer lo último!</h4>
-                <p>Te invitamos a nuestro próximo evento de lanzamiento de producto, donde revelaremos las últimas innovaciones de nuestra compañía. No te pierdas la oportunidad de ser el primero en conocer lo que viene.</p>
-            </div>
+            {loading ? (
+                <p>Cargando...</p>
+            ) : (
+                publicaciones.map(item => <PublicacionItem key={item.id_publicacion}
+                    title={item.titulo} subtitle={item.subtitulo} date={formatFecha(item.fecha_subida)}
+                    imagen={item.imagen} body={item.cuerpo} />)
+            )}
         </section>
-    );
-}
+    )
+};
 
 export default NovedadesPage;

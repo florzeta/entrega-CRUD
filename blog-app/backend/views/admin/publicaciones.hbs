@@ -22,16 +22,16 @@
                         <th scope="col">#</th>
                         <th scope="col">Titulo</th>
                         <th scope="col">Imagen</th>
-                        <th clas="text-center" scope="col">Acciones</th>
+                        <th clas="text-end" scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {{#each publicaciones}}
                     <tr>
                         <th scope="row">{{id_publicacion}}</th>
-                        <td>{{titulo}}</td>
-                        <td>{{{imagen}}}</td>
-                        <td class="text-end">
+                        <td scope="col">{{titulo}}</td>
+                        <td scope="col">{{{imagen}}}</td>
+                        <td scope="col">
                             <a class="btn btn-secondary" href="/admin/publicaciones/modificar/{{id_publicacion}}"><i
                                     class="fa fa-pencil" aria-hidden="true"></i></a>
                             <a class="btn btn-secondary" href="/admin/publicaciones/eliminar/{{id_publicacion}}"><i

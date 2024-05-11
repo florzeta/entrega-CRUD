@@ -1,47 +1,51 @@
 .contacto {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 24px;
 }
 
-.contacto div{
-    width: 100%;
+.datos p,
+.formulario p {
+    margin-bottom: 10px;
 }
 
-.datos p {
+.datos p,
+.formulario p,
+.datos ul,
+.formulario ul {
     font-size: 14px;
 }
 
-.datos ul li {
-    font-size: 13px;
+.datos ul,
+.formulario ul {
+    list-style-type: none;
+    padding: 0;
 }
 
-.formulario p label {
-    min-width: 80px;
-    display: flex;
-    align-items: center;
-}
-
-.formulario p input,
-.formulario p textarea {
-    width: 100%;
-    background: #ddd;
-    border-radius: 5px;
-    border: 1px, solid, #999;
-    font-size: 14px;
-    padding: 6px 10px;
-}
-
-.formulario p:nth-child(4){
-    align-items: center;
-}
+.formulario input,
 .formulario textarea {
-    resize: none;
-    height: 150px;
+    width: 100%;
+    background: #f2f2f2;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.formulario textarea {
+    resize: vertical;
+    min-height: 100px;
 }
 
 .formulario input[type="submit"] {
     background: #6da9ed;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .formulario input[type="submit"]:hover {
