@@ -1,33 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import PublicacionItem from '../publicaciones/PublicacionItem';
 import '../styles/components/pages/PublicacionesPage.css';
 
-const PublicacionesPage = () => {
-    const [posts, setPosts] = useState([]);
+const PublicacionesPage = (props) => {
+    const [loading, setLoading] = useState(false);
+    const [publicaciones, setPublicaciones] = useState([]);
+
     useEffect(() => {
-        axios.get('/api/blog')
-            .then(res => {
-                setPosts(res.data);
-            })
-            .catch(err => console.log(err));
+        const cargarPublicaciones = async () => {
+            setLoading(true);
+            const response = await axios.get('http://localhost:3000/api/publicaciones');
+            setPublicaciones(response.data);
+            setLoading(false);
+        };
+        cargarPublicaciones();
     }, []);
     return (
-        <main className="holder main">
-            <div className="publicaciones">
-                <h2>Publicaciones</h2>
-                <div className="container">
-                    <ul>
-                        {posts.map(post => (
-                            <li key={post._id}>
-                                <Link to={`/post/${post._id}`}>{post.title}</Link>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </div>
-        </main>
-    );
-}
+        <section className="holder">
+            <h2>Publicaciones</h2>
+            {loading ? (
+                    <p>Cargando...</p>
+                ) : (
+                    publicaciones.map(item => <PublicacionItem key={item.id_publicacion}
+                        title={item.titulo} subtitle={item.subtitulo}
+                        imagen={item.imagen} body={item.cuerpo} />)
+                )
+            }
+        </section>
+    )
+};
 
 export default PublicacionesPage;

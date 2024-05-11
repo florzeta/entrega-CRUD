@@ -75,8 +75,8 @@ router.post('/agregar', async (req, res, next) => {
 router.get('/eliminar/:id', async (req, res, next) => {
     var id = req.params.id;
 
-    let publicacion = await publicacionesModel.getPublicacionById(id); 
-    if(publicacion.img_id) {
+    let publicacion = await publicacionesModel.getPublicacionById(id);
+    if (publicacion.img_id) {
         await (destroy(publicacion.img_id));
     }
     await publicacionesModel.deletePublicacionById(id);

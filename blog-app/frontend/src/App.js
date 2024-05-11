@@ -19,7 +19,7 @@ function App() {
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path="publicaciones" element={<PublicacionesPage />} />
-          <Route path="novedades" element={<NovedadesPage />} />
+          {/* <Route path="novedades" element={<NovedadesPage />} /> */}
           < Route path="contacto" element={<ContactoPage />} />
         </Routes>
       </BrowserRouter>
