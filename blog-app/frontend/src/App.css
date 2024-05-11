@@ -13,5 +13,6 @@ body {
 
 h2 {
   color: rgb(81, 81, 216);
-  font-weight: 400;
+  font-weight: bold;
+  font-size: 23px;
 }
